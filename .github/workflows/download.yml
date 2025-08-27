@@ -18,8 +18,18 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg
+          pip install --upgrade pip
           pip install yt-dlp
 
-      - name: Download as MP3
+      - name: Debug and Download
         run: |
-          yt-dlp -x --audio-forma
+          echo "Downloading from: ${{ github.event.inputs.url }}"
+          yt-dlp --version
+          ffmpeg -version
+          yt-dlp -x --audio-format mp3 "${{ github.event.inputs.url }}"
+
+      - name: Upload MP3 file
+        uses: actions/upload-artifact@v3
+        with:
+          name: youtube-mp3
+          path: "*.mp3"
