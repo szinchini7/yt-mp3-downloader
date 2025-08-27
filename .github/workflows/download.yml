@@ -1,0 +1,25 @@
+name: Download YouTube MP3
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'YouTube link'
+        required: true
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install yt-dlp and ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          pip install yt-dlp
+
+      - name: Download as MP3
+        run: |
+          yt-dlp -x --audio-forma
