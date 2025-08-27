@@ -29,7 +29,8 @@ jobs:
           yt-dlp -x --audio-format mp3 "${{ github.event.inputs.url }}"
 
       - name: Upload MP3 file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: youtube-mp3
           path: "*.mp3"
+
